@@ -23,42 +23,42 @@ public:
 	int FindFirstYear(int year) {
 		int firstchange = First.lower_bound(0)->first;
 		if (firstchange == year)
-			return year;			// ???? ????????????? = ???????
+			return year;			// if last == sought-for
 		int first = 0;
 		while ((firstchange < year) && (First.upper_bound(firstchange) != end(First))) {
 			if (First.upper_bound(firstchange)->first > year ) {
-				return firstchange;	//?????????? ????????????? ??? ????? ???????
+				return firstchange;	// return year before sought-for
 				}
 			else
 				firstchange = First.upper_bound(firstchange)->first;
 		}
-		return firstchange;			// ???? ???? ???????????? ????? 
+		return firstchange;			// if ONLY 1 change has happend
 	}
 	int FindLastYear(int year) {
 		int firstchange = Last.lower_bound(0)->first;
 		if (firstchange == year)
-			return year;			// ???? ????????????? = ???????
+			return year;			// if last == sought-for
 		int first = 0;
 		while ((firstchange < year) && (Last.upper_bound(firstchange) != end(Last))) {
 			if (Last.upper_bound(firstchange)->first > year) {
-				return firstchange;	//?????????? ????????????? ??? ????? ???????
+				return firstchange;	// return year before sought-for
 			}
 			else
 				firstchange = Last.upper_bound(firstchange)->first;
 		}
-		return firstchange;			// ???? ???? ???????????? ????? 
+		return firstchange;			// if ONLY 1 change has happend
 	}
 
 	string GetFullName(int year) {
 		int firstnamechange1 = First.lower_bound(0)->first;
 		int lastnamechange1 = Last.lower_bound(0)->first;
-		if (((firstnamechange1 > year) && (lastnamechange1 > year)) )	// ???? ?????? ??? ??????? ??? ????? ???? 
+		if (((firstnamechange1 > year) && (lastnamechange1 > year)) )	// if changes happend after year
 			return "Incognito";
-		if ((firstnamechange1 <= year) && (lastnamechange1 > year))		// ???? ??? ??????? ? ??????? ???
+		if ((firstnamechange1 <= year) && (lastnamechange1 > year))		// if first name changed but last wasn't
 			return First.lower_bound(FindFirstYear(year))->second + " with unnown last name";
-		if ((lastnamechange1 <= year) && (firstnamechange1 > year))		// ???? ??????? ??????? ? ??? ???
+		if ((lastnamechange1 <= year) && (firstnamechange1 > year))		// if last name changed but first wasn't
 			return Last.lower_bound(FindLastYear(year))->second + " with unnown last name";
-		if ((lastnamechange1 <= year) && (firstnamechange1 <= year))	// ???? ? ??????? ? ??? ???????
+		if ((lastnamechange1 <= year) && (firstnamechange1 <= year))	// if all was changed
 			return First.lower_bound(FindFirstYear(year))->second +' '+ Last.lower_bound(FindLastYear(year))->second;
 	}
 
@@ -66,8 +66,6 @@ public:
 private:
 	map<int,string> First;
 	map<int,string> Last;
-	//string First;
-	//string Last;
 };
 
 Person::Person()
