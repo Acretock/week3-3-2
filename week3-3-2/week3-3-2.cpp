@@ -26,9 +26,9 @@ public:
 			return year;			// if last == sought-for
 		int first = 0;
 		while ((firstchange < year) && (First.upper_bound(firstchange) != end(First))) {
-			if (First.upper_bound(firstchange)->first > year) {
+			if (First.upper_bound(firstchange)->first > year ) {
 				return firstchange;	// return year before sought-for
-			}
+				}
 			else
 				firstchange = First.upper_bound(firstchange)->first;
 		}
@@ -52,20 +52,22 @@ public:
 	string GetFullName(int year) {
 		int firstnamechange1 = First.lower_bound(0)->first;
 		int lastnamechange1 = Last.lower_bound(0)->first;
-		if (((firstnamechange1 > year) && (lastnamechange1 > year)))	// if changes happend after year
+		if (((firstnamechange1 > year) && (lastnamechange1 > year)) )	// if changes happend after year
 			return "Incognito";
 		if ((firstnamechange1 <= year) && (lastnamechange1 > year))		// if first name changed but last wasn't
 			return First.lower_bound(FindFirstYear(year))->second + " with unnown last name";
 		if ((lastnamechange1 <= year) && (firstnamechange1 > year))		// if last name changed but first wasn't
 			return Last.lower_bound(FindLastYear(year))->second + " with unnown last name";
 		if ((lastnamechange1 <= year) && (firstnamechange1 <= year))	// if all was changed
-			return First.lower_bound(FindFirstYear(year))->second + ' ' + Last.lower_bound(FindLastYear(year))->second;
+			return First.lower_bound(FindFirstYear(year))->second +' '+ Last.lower_bound(FindLastYear(year))->second;
 	}
 
 
 private:
-	map<int, string> First;
-	map<int, string> Last;
+	map<int,string> First;
+	map<int,string> Last;
+	//string First;
+	//string Last;
 };
 
 Person::Person()
@@ -96,8 +98,6 @@ int main()
 	for (int year : { 1969, 1970 }) {
 		cout << person.GetFullName(year) << endl;
 	}
-	return 0;
-}
 
 /*
 Incognito
@@ -107,5 +107,7 @@ Polina Sergeeva
 Appolinaria Sergeeva
 Polina Volkova
 Appolinaria Volkova
+
 THIS SHOULD BE PRINTED
-*/
+*/	return 0;
+}
